@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+angular.module('hoods', ['ionic', 'hoods.controllers'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -22,3 +22,36 @@ angular.module('starter', ['ionic'])
     }
   });
 })
+
+.config(function($stateProvider, $urlRouterProvider) {
+    $stateProvider
+
+    .state('tab', {
+        url:'/tab',
+        abstract: true,
+        templateUrl: 'templates/tabs.html',
+        controller: 'TabsCtrl'
+    })
+
+    .state('tab.login', {
+        url: '/login',
+        views: {
+            'tab-login': {
+                templateUrl: 'templates/login.html',
+                controller: 'LoginCtrl'
+            }
+        }
+    })
+
+    .state('tab.char', {
+        url: '/char',
+        views: {
+            'tab-char': {
+                templateUrl: 'templates/char.html',
+                controller: 'CharCtrl'
+            }
+        }
+    })
+
+    $urlRouterProvider.otherwise('/tab/login');
+});
