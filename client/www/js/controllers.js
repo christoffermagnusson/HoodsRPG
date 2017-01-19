@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngCordova'])
 
 .controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state) {
     $scope.data = {};
@@ -35,6 +35,45 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('NearbyCtrl', function($scope) {
+.controller('NearbyCtrl', function($scope, $ionicPopup, $cordovaGeolocation) {
 
+    var posOptions = {timeout: 10000, enableHighAccuracy: false};
+    $scope.lat = 1;
+    $scope.lng = 3;
+
+    $cordovaGeolocation
+    .getCurrentPosition(posOptions)
+
+    .then(function (position) {
+      $scope.lat = position.coords.latitude
+      $scope.lng = position.coords.latitude
+    }, function(err) {
+        console.log(err)
+        var alertPopup = $ionicPopup.alert({
+            title: 'Error',
+            template: err
+        })
+    });
+
+    var watchOptions = {timeout: 3000, enableHighAccuracy: false};
+    var watch = $cordovaGeolocation.watchPosition(watchOptions);
+
+    watch.then(
+        null,
+
+        function(err) {
+          console.log(err)
+            var alertPopup = $ionicPopup.alert({
+                title: 'Error',
+                template: err
+            })
+        },
+
+        function(position) {
+            $scope.lat = position.coords.latitude
+            $scope.lng = position.coords.longitude
+        }
+    );
+
+    watch.clearWatch();
 });
