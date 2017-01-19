@@ -37,43 +37,33 @@ angular.module('starter.controllers', ['ngCordova'])
 
 .controller('NearbyCtrl', function($scope, $ionicPopup, $cordovaGeolocation) {
 
-    var posOptions = {timeout: 10000, enableHighAccuracy: false};
+    var posOptions = {timeout: 10000, enableHighAccuracy: true};
     $scope.lat = 1;
-    $scope.lng = 3;
+    $scope.lng = 0;
 
     $cordovaGeolocation
     .getCurrentPosition(posOptions)
 
     .then(function (position) {
       $scope.lat = position.coords.latitude
-      $scope.lng = position.coords.latitude
+      $scope.lng = position.coords.longitude
     }, function(err) {
         console.log(err)
-        var alertPopup = $ionicPopup.alert({
-            title: 'Error',
-            template: err
-        })
     });
 
-    var watchOptions = {timeout: 3000, enableHighAccuracy: false};
+    var watchOptions = {timeout: 3000, enableHighAccuracy: true};
     var watch = $cordovaGeolocation.watchPosition(watchOptions);
 
     watch.then(
         null,
 
-        function(err) {
-          console.log(err)
-            var alertPopup = $ionicPopup.alert({
-                title: 'Error',
-                template: err
-            })
-        },
+      function(err) {
+        console.log(err)
+      },
 
-        function(position) {
-            $scope.lat = position.coords.latitude
-            $scope.lng = position.coords.longitude
-        }
+      function(position) {
+        $scope.lat = position.coords.latitude
+        $scope.lng = position.coords.longitude
+      }
     );
-
-    watch.clearWatch();
 });
