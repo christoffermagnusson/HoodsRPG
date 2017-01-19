@@ -47,41 +47,42 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   // Each tab has its own nav history stack:
 
-  .state('tab.dash', {
-    url: '/dash',
+  .state('tab.chat', {
+    url: '/chat',
     views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
+      'tab-chat': {
+        templateUrl: 'templates/tab-chat.html',
+        controller: 'ChatCtrl'
       }
     }
   })
 
-  .state('tab.chats', {
-      url: '/chats',
+  .state('tab.stats', {
+      url: '/stats',
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
-      }
-    })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+        'tab-stats': {
+          templateUrl: 'templates/tab-stats.html',
+          controller: 'StatsCtrl'
         }
       }
     })
 
-  .state('tab.account', {
-    url: '/account',
+  .state('tab.inventory', {
+    url: '/inventory',
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+      'tab-inventory': {
+        templateUrl: 'templates/tab-inventory.html',
+        controller: 'InventoryCtrl'
+      }
+    }
+  })
+
+  .state('tab.nearby', {
+    url: '/nearby',
+    views: {
+      'tab-nearby': {
+        templateUrl: 'templates/tab-nearby.html',
+        controller: 'NearbyCtrl'
       }
     }
   });

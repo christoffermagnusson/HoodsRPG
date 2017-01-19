@@ -5,7 +5,7 @@ angular.module('starter.controllers', [])
 
     $scope.login = function() {
         LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {
-            $state.go('tab.dash');
+            $state.go('tab.chat');
         }).error(function(data) {
             var alertPopup = $ionicPopup.alert({
                 title: 'Login failed!',
@@ -15,29 +15,26 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('DashCtrl', function($scope) {})
+.controller('ChatCtrl', function($scope) {
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('StatsCtrl', function($scope) {
+    $scope.player = {
+        title: 'Sir',
+        name: 'Bengt',
+        currentHp: '73',
+        maxHp: '100',
+        strength: '666',
+        vitality: '1337',
+        dexterity: '-37'
+    };
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('InventoryCtrl', function($scope) {
+
+})
+
+.controller('NearbyCtrl', function($scope) {
+
 });
