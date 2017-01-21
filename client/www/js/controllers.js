@@ -48,7 +48,8 @@ angular.module('starter.controllers', ['ngCordova'])
       $scope.lat = position.coords.latitude
       $scope.lng = position.coords.longitude
     }, function(err) {
-        console.log(err)
+        console.log(err),
+        $scope.error = 'GetCurrentPosition: ' + err.message
     });
 
     var watchOptions = {timeout: 3000, enableHighAccuracy: true};
@@ -58,7 +59,8 @@ angular.module('starter.controllers', ['ngCordova'])
         null,
 
       function(err) {
-        console.log(err)
+        console.log(err),
+        $scope.error = 'Watch: ' + err.message
       },
 
       function(position) {
