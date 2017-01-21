@@ -38,34 +38,27 @@ angular.module('starter.controllers', ['ngCordova'])
 .controller('NearbyCtrl', function($scope, $ionicPopup, $cordovaGeolocation) {
 
     var posOptions = {timeout: 10000, enableHighAccuracy: true};
-    $scope.lat = 1;
-    $scope.lng = 0;
-
     $cordovaGeolocation
     .getCurrentPosition(posOptions)
 
-    .then(function (position) {
+    .then(function (position) { // Will wait for user at permission prompt
       $scope.lat = position.coords.latitude
       $scope.lng = position.coords.longitude
-    }, function(err) {
-        console.log(err),
-        $scope.error = 'GetCurrentPosition: ' + err.message
+
+      var watchOptions = {timeout: 3000, enableHighAccuracy: true};
+      var watch = $cordovaGeolocation.watchPosition(watchOptions);
+
+      watch.then( // If initial position request succeeded > Keep watching!
+          null,
+          function(err) { // Watch error handling
+              console.log(err)
+          },
+          function(position) {
+              $scope.lat = position.coords.latitude;
+              $scope.lng = position.coords.longitude;
+          }
+      );
+    }, function(err) { // Will throw "Illegal access" if permissions are denied
+        console.log(err)
     });
-
-    var watchOptions = {timeout: 3000, enableHighAccuracy: true};
-    var watch = $cordovaGeolocation.watchPosition(watchOptions);
-
-    watch.then(
-        null,
-
-      function(err) {
-        console.log(err),
-        $scope.error = 'Watch: ' + err.message
-      },
-
-      function(position) {
-        $scope.lat = position.coords.latitude
-        $scope.lng = position.coords.longitude
-      }
-    );
 });
