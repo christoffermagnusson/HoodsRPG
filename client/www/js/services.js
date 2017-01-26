@@ -30,4 +30,17 @@ angular.module('starter.services', ['btford.socket-io'])
         ioSocket: myIoSocket
     });
     return mySocket;
+})
+
+.service('ClientUtilService',function(){
+	var name = "";
+
+	return {	
+		getUserCredentials : function(){		
+		return 	this.name
+		},	
+		setUserCredentials : function(username){
+			this.name = username; 
+}
+}
 });

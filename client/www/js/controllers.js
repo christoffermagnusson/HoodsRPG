@@ -1,17 +1,18 @@
 angular.module('starter.controllers', ['ngCordova', 'btford.socket-io'])
 
-.controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, socket) {
+.controller('LoginCtrl', function($scope, LoginService, ClientUtilService, $ionicPopup, $state, socket) {
     $scope.data = {};
 
     $scope.login = function() {
         LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {
-            $state.go('tab.chat');
-
+            
             // SOCKET IO TEST
             socket.on('connect', function() {
                 socket.emit('hello', 'Hello SERVER!!!');
             });
 
+           ClientUtilService.setUserCredentials($scope.data.username)
+	       $state.go('tab.chat');
         }).error(function(data) {
             var alertPopup = $ionicPopup.alert({
                 title: 'Login failed!',
@@ -21,8 +22,18 @@ angular.module('starter.controllers', ['ngCordova', 'btford.socket-io'])
     }
 })
 
-.controller('ChatCtrl', function($scope) {
+.controller('ChatCtrl', function($scope,ClientUtilService) {
+	$scope.data = {};
+	$scope.data.username = ClientUtilService.getUserCredentials();	
 
+	$scope.onEnterButton = function(){
+	if($scope.data.output == null){
+	$scope.data.output = $scope.data.username +'>'+$scope.data.input+'\n';
+	$scope.data.input = "";
+	}else{
+	$scope.data.output += $scope.data.username +'>'+$scope.data.input+'\n';
+	$scope.data.input = "";
+	}};
 })
 
 .controller('StatsCtrl', function($scope) {
