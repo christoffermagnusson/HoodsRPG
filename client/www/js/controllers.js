@@ -1,11 +1,17 @@
-angular.module('starter.controllers', ['ngCordova'])
+angular.module('starter.controllers', ['ngCordova', 'btford.socket-io'])
 
-.controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state) {
+.controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state, socket) {
     $scope.data = {};
 
     $scope.login = function() {
         LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {
             $state.go('tab.chat');
+
+            // SOCKET IO TEST
+            socket.on('connect', function() {
+                socket.emit('hello', 'Hello SERVER!!!');
+            });
+
         }).error(function(data) {
             var alertPopup = $ionicPopup.alert({
                 title: 'Login failed!',
