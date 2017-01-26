@@ -1,11 +1,12 @@
 angular.module('starter.controllers', ['ngCordova'])
 
-.controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state) {
+.controller('LoginCtrl', function($scope, LoginService, ClientUtilService, $ionicPopup, $state) {
     $scope.data = {};
 
     $scope.login = function() {
         LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {
-            $state.go('tab.chat');
+           ClientUtilService.setUserCredentials($scope.data.username)
+	 $state.go('tab.chat');
         }).error(function(data) {
             var alertPopup = $ionicPopup.alert({
                 title: 'Login failed!',
@@ -15,8 +16,16 @@ angular.module('starter.controllers', ['ngCordova'])
     }
 })
 
-.controller('ChatCtrl', function($scope) {
+.controller('ChatCtrl', function($scope,ClientUtilService) {
+	$scope.data = {};
+	$scope.data.username = ClientUtilService.getUserCredentials();	
 
+	$scope.onEnterButton = function(){
+	if($scope.data.output == null){
+	$scope.data.output = $scope.data.username +'>'+$scope.data.input+'\n';
+	}else{
+	$scope.data.output += $scope.data.username +'>'+$scope.data.input+'\n';
+	}};
 })
 
 .controller('StatsCtrl', function($scope) {

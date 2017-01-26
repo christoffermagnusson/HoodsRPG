@@ -22,4 +22,17 @@ angular.module('starter.services', [])
             return promise;
         }
     }
+})
+
+.service('ClientUtilService',function(){
+	var name = "";
+
+	return {	
+		getUserCredentials : function(){		
+		return 	this.name
+		},	
+		setUserCredentials : function(username){
+			this.name = username; 
+}
+}
 });
