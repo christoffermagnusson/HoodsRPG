@@ -23,8 +23,10 @@ angular.module('starter.controllers', ['ngCordova'])
 	$scope.onEnterButton = function(){
 	if($scope.data.output == null){
 	$scope.data.output = $scope.data.username +'>'+$scope.data.input+'\n';
+	$scope.data.input = "";
 	}else{
 	$scope.data.output += $scope.data.username +'>'+$scope.data.input+'\n';
+	$scope.data.input = "";
 	}};
 })
 
