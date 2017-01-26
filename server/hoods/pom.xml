@@ -20,4 +20,41 @@
       <version>1.7.12</version>
     </dependency>
   </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+	  <archive>
+	    <manifest>
+	      <mainClass>org.kebab.ServerLauncher</mainClass>
+	    </manifest>
+	  </archive>
+	</configuration>
+      </plugin>
+      <plugin>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>exec-maven-plugin</artifactId>
+	<version>1.5.0</version>
+	<executions>
+	  <execution>
+	    <goals>
+	      <goal>exec</goal>
+	    </goals>
+	  </execution>
+	</executions>
+      	<configuration>
+	  <executable>maven</executable>
+	  <workingDirectory>/tmp</workingDirectory>
+	  <mainClass>org.kebab.ServerLauncher</mainClass>
+	</configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.slf4j</groupId>
+	<artifactId>slf4j-simple</artifactId>
+	<version>1.7.22</version>
+      </plugin>
+    </plugins>
+  </build>
 </project>

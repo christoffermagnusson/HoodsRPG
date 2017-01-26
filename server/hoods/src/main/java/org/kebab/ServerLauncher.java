@@ -12,9 +12,11 @@ import com.corundumstudio.socketio.AckRequest;
 public class ServerLauncher {
 
     public static void main(String[] args) throws InterruptedException {
+	System.out.println("Starting server...");
+
         Configuration config = new Configuration();
-        config.setHostname("localhost");
-        config.setPort(9092);
+        config.setHostname("ec2-34-196-203-68.compute-1.amazonaws.com");
+        config.setPort(8000);
 
         final SocketIOServer server = new SocketIOServer(config);
         server.addEventListener("JSONEvent", JSONEvent.class, new DataListener<JSONEvent>() {
