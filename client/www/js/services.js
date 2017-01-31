@@ -25,7 +25,7 @@ angular.module('starter.services', ['btford.socket-io'])
 })
 
 .factory('socket', function(socketFactory) {
-    var myIoSocket = io.connect('ec2-34-196-203-68.compute-1.amazonaws.com:8000');
+    var myIoSocket = io.connect('http://ec2-34-196-203-68.compute-1.amazonaws.com:8000');
     mySocket = socketFactory({
         ioSocket: myIoSocket
     });

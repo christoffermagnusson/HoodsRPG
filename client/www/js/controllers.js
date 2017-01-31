@@ -8,8 +8,10 @@ angular.module('starter.controllers', ['ngCordova', 'btford.socket-io'])
             
             // SOCKET IO TEST
             socket.on('connect', function() {
-                socket.emit('hello', 'Hello SERVER!!!');
+                socket.emit('JSONEvent', 'Hello SERVER!!!');
             });
+
+            socket.emit('JSONEvent', "Tja fan!");
 
            ClientUtilService.setUserCredentials($scope.data.username)
 	       $state.go('tab.chat');
