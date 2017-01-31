@@ -23,6 +23,7 @@ public class ServerLauncher {
             @Override
             public void onData(SocketIOClient client, JSONEvent data, AckRequest ackRequest) {
                 System.out.println("Message received from: " + client.getRemoteAddress().toString());
+		System.out.println(data.getRawData());
             }
         });
 
