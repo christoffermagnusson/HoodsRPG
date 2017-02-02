@@ -8,8 +8,17 @@ import java.util.UUID;
 public class ServerManager{
 
 	private Set<ClientConnection> clients = new HashSet<>();
+	private static ServerManager instance;	
 
-	public ServerManager(){
+	private ServerManager(){
+		
+	}
+
+	public static ServerManager getInstance(){
+		if(instance==null){
+			instance = new ServerManager();
+		}
+		return instance;
 	}
 
 	public void addClient(ClientConnection client){
