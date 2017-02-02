@@ -7,14 +7,22 @@ angular.module('starter.controllers', ['ngCordova', 'btford.socket-io'])
         LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {
             
             // SOCKET IO TEST
-            socket.on('connect', function() {
-                socket.emit('JSONEvent', 'Hello SERVER!!!');
+            socket.on('HoodsEvent', function() {
+                $state.go('tab.chat');
             });
 
-            socket.emit('JSONEvent', "Tja fan!");
+            var credentials = {
+                command: 'REQUESTLOGIN',
+                params: {
+                    username: $scope.data.username,
+                    password: $scope.data.password
+                }
+            };
+
+
+            socket.emit('JSONEvent', JSON.stringify(credentials));
 
            ClientUtilService.setUserCredentials($scope.data.username)
-	       $state.go('tab.chat');
         }).error(function(data) {
             var alertPopup = $ionicPopup.alert({
                 title: 'Login failed!',
