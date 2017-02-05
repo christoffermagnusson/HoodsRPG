@@ -13,7 +13,7 @@ import java.util.Iterator;
 
 public class ServerLauncher {
 
-	private static ServerManager manager = new ServerManager();
+	
 	
     public static void main(String[] args) throws InterruptedException {
 	
@@ -30,7 +30,8 @@ public class ServerLauncher {
             public void onData(SocketIOClient client, JSONEvent data, AckRequest ackRequest) {
                 System.out.println("Message received from: " + client.getRemoteAddress().toString());
 		System.out.println(data.getRawData());
-           //	client.sendEvent("connect",data);
+        	FrontHandler.getInstance().handleMessage(new ClientConnection(client),data.getRawData());	
+
 
 		 }
         });
@@ -39,8 +40,7 @@ public class ServerLauncher {
             @Override
             public void onConnect(SocketIOClient client) {
                 System.out.println("Client connected: " + client.getRemoteAddress().toString());
-		manager.addClient(new ClientConnection(client.getSessionId()));
-		loopClients();		
+		ServerManager.getInstance().addClient(new ClientConnection(client));
 		}
         });
 
@@ -48,8 +48,7 @@ public class ServerLauncher {
             @Override
             public void onDisconnect(SocketIOClient client) {
                 System.out.println("Client disconnected: " + client.getRemoteAddress().toString());
-            	manager.removeClient(new ClientConnection(client.getSessionId()));
-		loopClients();
+            	ServerManager.getInstance().removeClient(new ClientConnection(client));
 		}
         });
 	
@@ -59,13 +58,5 @@ public class ServerLauncher {
         server.stop();
     }
 	
-	private static void loopClients(){
-	Iterator<ClientConnection> it = manager.getClients().iterator();
-
-	System.out.println("Currently looping...");
-	while(it.hasNext()){
-	System.out.println(it.next());
 	}
 	
-	}
-}
