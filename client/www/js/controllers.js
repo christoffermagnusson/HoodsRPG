@@ -32,18 +32,36 @@ angular.module('starter.controllers', ['ngCordova', 'btford.socket-io'])
     }
 })
 
-.controller('ChatCtrl', function($scope,ClientUtilService) {
+.controller('ChatCtrl', function($scope,ClientUtilService,socket) {
 	$scope.data = {};
 	$scope.data.username = ClientUtilService.getUserCredentials();	
 
 	$scope.onEnterButton = function(){
-	if($scope.data.output == null){
-	$scope.data.output = $scope.data.username +'>'+$scope.data.input+'\n';
+	
+	var chatInput = {
+		command : 'CHATMESSAGE',
+		params : {
+			username: $scope.data.username,
+			chatMessage: $scope.data.input
+			}
+	};
+
+	socket.emit('JSONEvent', JSON.stringify(chatInput));
+	
+	socket.on('HoodsEvent', function(event){
+		console.log("EVENT RECEIVED : \n"+JSON.stringify(event));
+		var message = JSON.parse(JSON.stringify(event));
+		console.log(message.chatMessage);
+		$scope.data.output =  + '\n';	
+	});	
+		
+	
+/*	$scope.data.output = $scope.data.username +'>'+$scope.data.input+'\n';
 	$scope.data.input = "";
 	}else{
 	$scope.data.output += $scope.data.username +'>'+$scope.data.input+'\n';
-	$scope.data.input = "";
-	}};
+	$scope.data.input = "";*/
+	};
 })
 
 .controller('StatsCtrl', function($scope) {
