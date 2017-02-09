@@ -1,6 +1,7 @@
 org/kebab/ServerLauncher.class
 org/kebab/Scope.class
 org/kebab/ClientConnection.class
+org/kebab/CHATMESSAGEHandler.class
 org/kebab/IHandler.class
 org/kebab/MessageTransformer.class
 org/kebab/FrontHandler.class
