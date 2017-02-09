@@ -14,13 +14,13 @@ import java.util.Map;
 	* Incoming commands
 	**/
 	REQUESTLOGIN(Scope.NONE, Arrays.asList("username","password"),new REQUESTLOGINHandler()),
-
+	CHATMESSAGE(Scope.NONE, Arrays.asList("username" ,"chatMessage"), new CHATMESSAGEHandler()),
 	/*
 	* Outgoing commands
 	**/
 
-	CONFIRMLOGIN(Scope.SELF);
-	
+	CONFIRMLOGIN(Scope.SELF),
+	BROADCASTCHATMESSAGE(Scope.SERVER, Arrays.asList("username","chatMessage"));	
 
 	private Scope scope;
 	private List<String> params;
