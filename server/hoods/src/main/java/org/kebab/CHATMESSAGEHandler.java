@@ -10,6 +10,7 @@ public class CHATMESSAGEHandler implements IHandler{
 		
 	@Override
 	public void handle(Message message){
+		
 		Message response = new Message(Command.BROADCASTCHATMESSAGE, message.getParams(),message.getSender());
 		response.send();	
 	}					

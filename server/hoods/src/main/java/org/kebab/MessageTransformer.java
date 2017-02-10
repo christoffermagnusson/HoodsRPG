@@ -32,6 +32,10 @@ public class MessageTransformer{
 	JSONObject result = new JSONObject();
 	result.put("command",command.toString());
 	result.put("params",obj);
+	
+	System.out.println("Printing result before toString()" +result);
+	System.out.println("toString() result : " +result.toString());
+	
 	return result.toString();
 	}
 
