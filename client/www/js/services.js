@@ -43,4 +43,17 @@ angular.module('starter.services', ['btford.socket-io'])
 			this.name = username; 
 }
 }
+})
+
+
+.service('JSONCleaner',function(){
+
+    
+
+        return {
+            cleanJSON : function(json){
+                json.replace(/\\/g, '');
+                console.log(json);
+            }
+        }
 });
